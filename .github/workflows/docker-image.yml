@@ -20,5 +20,5 @@ jobs:
       - name: Build the Image
         run: |
           docker buildx build --push\
-            --tag mihudec/multiarch-example:multiarch \
-            --platform linux/amd64,linux/arm/v7,linux/arm64 .
+            --tag mihudec/telegraf-snmp-net:latest \
+            --platform linux/amd64,linux/arm/v7,linux/arm64/v8 .
