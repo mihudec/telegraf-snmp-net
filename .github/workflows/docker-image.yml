@@ -1,0 +1,22 @@
+name: Build Image
+
+on:
+  push:
+    branches: master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Install buildx
+        id: buildx
+        uses: crazy-max/ghaction-docker-buildx@v1
+        with:
+          version: latest
+      - name: Build the Image
+        run: |
+          docker buildx build \
+            --tag your-username/multiarch-example:multiarch \
+            --platform linux/amd64,linux/arm/v7,linux/arm64 .
