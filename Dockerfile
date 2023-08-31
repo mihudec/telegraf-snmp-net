@@ -1,5 +1,5 @@
 # Based on https://github.com/weldpua2008/docker-net-snmp
-FROM telegraf:1.20
+FROM telegraf:1.27
 
 RUN export  DEBIAN_FRONTEND=noninteractive && \
 export DEBIAN_RELEASE=$(awk -F'[" ]' '/VERSION=/{print $3}'  /etc/os-release | tr -cd '[[:alnum:]]._-' ) && \
