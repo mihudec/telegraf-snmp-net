@@ -1,8 +1,7 @@
-name: Docker
+name: CI - Build and Push Release
 on:
   release:
     types: [created]
-  workflow_dispatch:
 
 jobs:
   docker:
@@ -23,6 +22,10 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ${{ matrix.image }}
+          tags: |
+            type=semver,pattern={{ version }}
+            type=raw,value=latest,enable={{is_default_branch}}
+      
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
 
@@ -40,7 +43,7 @@ jobs:
         with:
           context: .
           file: ${{ matrix.dockerfile }}
-          push: false
+          push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           platforms: ${{ matrix.platforms }}
